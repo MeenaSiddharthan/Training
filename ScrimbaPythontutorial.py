@@ -13,9 +13,9 @@ print("Hammerboi")
 print("Why boys")
 
 dates=8
-print("Meena has went on " +dates+ " failed dates")
+print(f'Meena has went on {dates} failed dates')
 cute=2
-x="Meena has went on "+dates+" failed dates with "+cute+" cute boys."
+print(f'Meena has went on {dates} failed dates with {cute} cute boys.')
 a='it\'s'
 b="it's"
 #""/'' - strings [treated as characters not numbers]
@@ -50,7 +50,7 @@ price=5.69
 stock=10
 is_in_inventory=True
 
-#below doesn't work since '+' concatenates. So use ','
+#below doesn't work since '+' concatenates string. So use ','
 print(name+price+stock)
 print(name,price,stock)
 
@@ -93,7 +93,6 @@ print(msg[2:])
 #Exercise
 a='Welcome to Python 101: Strings'
 print(a)
-print((a[-10]+' '+a[0:7]+' '+a[-5:-1]+' '+a[8:10]+' Tyler').title())
 b=a[-10]+' '+a[0:7]+' '+a[-5:-1]+' '+a[8:10]+' Tyler'
 print(b.title())
 #print txt backwards
@@ -124,7 +123,7 @@ print(msg)
 name=input('What is your name? ')
 print('Hello '+name+'!')
 age=input('What is your age? ')
-print('Hello '+name+' you be '+age+' years of useless')
+print(f'Hello {name} you be {age} years of useless')
 
 #Building a calculator
 num1=input('Enter a random number ')
@@ -137,3 +136,125 @@ name=input('What is your name? ')
 distance=input('How far are u from me in km? ')
 miles=float(distance)*0.621
 print(f'Hello {name.title()}! You are {distance} km or {round(miles,1)} miles from me.')
+
+#List
+friends=['Mary','Jord','Freja','Pyotr']
+print(friends)
+print(friends[1],friends[3])
+print(len(friends))
+#find what position an item is at
+print(friends.index('Pyotr'))
+#count number of instances something is in list
+print(friends.count('Jord'))
+#lists can contain int/str/bool mixture
+#to sort list
+friends.sort()
+print(friends)
+friends.sort(reverse=True)
+print(friends)
+friends.reverse()
+print(friends)
+#min max sum of lists
+cars=[911,123,567,393,378,605]
+print(max(cars))
+print(min(cars))
+print(sum(cars))
+#add to list
+friends.append('Jase')
+friends.insert(2,'Lola')
+#Below changes an existing value in list
+friends[3]='Bin'
+#extend list - put two lists together
+friends.extend(cars)
+print(friends)
+#remove from list
+friends.remove('Freja')
+friends.pop(-1)
+print(friends)
+#deletes within list
+del friends[2]
+#to duplicate/copy list
+new_friends=friends[:]
+new_friends=list(friends)
+new_friends=friends.copy()
+print(new_friends)
+
+#Exercise
+sale_w1=[7,3,42,19,15,35,9]
+sale_w2=[12,4,26,10,7,28]
+day7=input('How many lemonades did you sell on 7th day of week 2? ')
+sale_w2.append(int(day7))
+print(sale_w2)
+sale_w1.extend(sale_w2)
+sales=[i*1.5 for i in sale_w1]
+print(sales)
+print(max(sales))
+print(min(sales))
+print(sum(sales))
+
+#using numpy
+sale_w1=np.array([7,3,42,19,15,35,9])
+sale_w2=np.array([12,4,26,10,7,28])
+day7=input('Week 2 7th day sales? ')
+np.append(sale_w2,day7)
+sales=np.append(sale_w1,sale_w2)
+sales=sales*1.5
+print(sales)
+np.min(sales)
+np.max(sales)
+np.sum(sales)
+
+#Using split to change message to list
+msg='Welcome to Python 101: Split and Join'
+print(msg.split())
+print(msg.split(' '))
+#Make list into string
+friend_list=['John','Eric','Mike','Toto','Abel']
+print('-'.join(friend_list))
+
+#Exercise
+csv='Eric,John,Michael,Terry,Graham:TerryG;Brian'
+print(csv)
+csv=csv.replace(',',' ').replace(':',' ').replace(';',' ').split(' ')
+friends_list=csv
+print(friends_list)
+
+#Tuples-faster lists that you can't change
+friend_list=['John','Eric','Mike','Toto','Abel']
+friends_tuple=('John','Eric','Mike','Toto','Abel')
+print(friend_list)
+print(friends_tuple)
+#can use tuple to ensure no changes to list/data when running script
+
+#Sets - use curly brackets to make sets
+#Set is unordered and removes duplicates inside + sets are faster at finding members
+friends_set = {'John','Michael','Terry','Eric','Graham','Eric'}
+print(friends_set)
+my_friends_set = {'Reg','Loretta','Colin','Eric','Graham'}
+#prints common in sets
+print(friends_set.intersection(my_friends_set))
+#give all elements with no duplicates
+print(friends_set.union(my_friends_set))
+#cannot create set using just curly brackets must be x=set()
+
+#Exercise
+friends = {'John','Michael','Terry','Eric','Graham'}
+if 'Eric' in friends:
+    print('True')
+else: 
+    print('False')
+if 'Eric' and 'Terry' in friends:
+    print('True')
+else:
+    print('False')
+#Or simply
+print('Eric' and 'Terry' in friends)
+my_friends = {'Reg','Loretta','Colin','John','Graham'}
+all_friends=friends.union(my_friends)
+all_friends=(friends | my_friends)
+print(all_friends)
+#Get only common names
+common_friends=friends.intersection(my_friends)
+common_friends=(friends & my_friends)
+print(common_friends)
+#
