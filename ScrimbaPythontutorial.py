@@ -257,4 +257,72 @@ print(all_friends)
 common_friends=friends.intersection(my_friends)
 common_friends=(friends & my_friends)
 print(common_friends)
-#
+
+# Functions
+#always decalre function before using it
+def greet(x,y):
+    print(f"Hello {x}, you are {y}!")
+          
+greet("brian","21")
+
+#to set default age greet(x,y=28)
+x=input("Enter your name: ")
+y=input("Enter your age: ")
+greet(x,y)
+
+#Exercise
+def greeting(name, age=28, color="red"):
+    print(f'Hello {name.title()}, you will be {age+1} next year')
+    print(f'We hear you like the color {color.lower()}!')
+    
+color=input("Enter your favorite color: ")
+greeting("Nat",color=color,age=22)
+
+#Return
+def value_added_tax(amount):
+    tax = amount * 0.25
+    total_amount = amount *1.25
+    return f"{amount},{tax},{total_amount}"
+# OR return [amount, tax, total_amount] to get list
+# OR return amount, tax, total_amount to get tuple
+
+print(value_added_tax(111))
+
+#Comparisons
+a=7
+b=3
+# check if a=b
+print(a==b)
+# check if a is not b
+print(a!=b)
+# check if a lesser than b
+print(a>b)
+print(a>=b)
+# check if something is in something
+print('o' in 'bay')
+#check if something is not in something
+print('o' not in 'boy')
+a=3
+#check if a is b
+print(a is b)
+#Bool - true is 1 and false is 0
+print(bool(5))
+#all empty values becomes false
+
+#If else code
+is_raining=False
+is_cold=True
+if is_raining and is_cold:
+    print("Bring an umbrella + jacket")
+elif is_raining and not(is_cold):
+    print("Bring umbrealla")
+elif is_cold and not(is_raining):
+    print("Bring jacket")
+else:
+    print("Umbrella no need")
+
+#Exercise
+equation=input("What sum would you like to solve? ")
+
+if "+" in equation:
+    print
