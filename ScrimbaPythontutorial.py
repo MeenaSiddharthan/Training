@@ -258,71 +258,116 @@ common_friends=friends.intersection(my_friends)
 common_friends=(friends & my_friends)
 print(common_friends)
 
-# Functions
-#always decalre function before using it
-def greet(x,y):
-    print(f"Hello {x}, you are {y}!")
-          
-greet("brian","21")
-
-#to set default age greet(x,y=28)
-x=input("Enter your name: ")
-y=input("Enter your age: ")
-greet(x,y)
-
-#Exercise
-def greeting(name, age=28, color="red"):
-    print(f'Hello {name.title()}, you will be {age+1} next year')
-    print(f'We hear you like the color {color.lower()}!')
-    
-color=input("Enter your favorite color: ")
-greeting("Nat",color=color,age=22)
-
-#Return
-def value_added_tax(amount):
-    tax = amount * 0.25
-    total_amount = amount *1.25
-    return f"{amount},{tax},{total_amount}"
-# OR return [amount, tax, total_amount] to get list
-# OR return amount, tax, total_amount to get tuple
-
-print(value_added_tax(111))
-
-#Comparisons
-a=7
-b=3
-# check if a=b
-print(a==b)
-# check if a is not b
-print(a!=b)
-# check if a lesser than b
-print(a>b)
-print(a>=b)
-# check if something is in something
-print('o' in 'bay')
-#check if something is not in something
-print('o' not in 'boy')
-a=3
-#check if a is b
-print(a is b)
-#Bool - true is 1 and false is 0
-print(bool(5))
-#all empty values becomes false
-
-#If else code
-is_raining=False
-is_cold=True
-if is_raining and is_cold:
-    print("Bring an umbrella + jacket")
-elif is_raining and not(is_cold):
-    print("Bring umbrealla")
-elif is_cold and not(is_raining):
-    print("Bring jacket")
+#if elif statements
+mode = input("Enter what you'd like to do (+,-,*,/): ")
+num1 = float(input('Enter first number: '))
+num2 = float(input('Enter second number: '))
+             
+if mode == '+':
+    print(f'Answer: {num1+num2}')
+elif mode == '-':
+    print(f'Anser: {num1-num2}')
+elif mode == '*':
+    print(f'Answer: {num1*num2}')
+elif mode == '/':
+    print(f'Answer: {num1/num2}')
 else:
-    print("Umbrella no need")
+    print('Input Error :(')
 
-#Exercise
-equation=input("What sum would you like to solve? ")
+#Conditionals
+#sets for in run way faster than tuple or list
+def num_days(month):
+    if month.lower() in {'jan','mar','may','jul','aug','oct','dec'}:
+        days=31
+    elif month.lower() == 'feb':
+        days=28
+    else:
+        days=30
+        print(f'Number of days in {month} is {days} days')
 
-if "+" in equation:
-    print
+month=input('What month is it?: ')
+num_days(month)
+
+#Loops
+# Three Loop Questions:
+#1. What do I want to repeat?
+#  -> 
+#2. What do I want to change each time?
+#  -> 
+#3. How long should we repeat?
+#Main structure:
+    # while condition:
+    #     code
+    #     iterator
+i=0
+while i < 5:
+    i+=1 #adds 1 to i
+    print(f"*"*i + "Loops are awesome" + "*"*i)
+
+#Excercise while loops
+i=0
+while i<10:
+    num1=int(input('Guess a number between 1-100: '))
+    num1
+    if num1 == 25:
+        print('You Win! That is correct!')
+        i+=12
+    elif num1 <= 25:
+        print(f'Your guess is too small. You have {9-i} attempts left')
+    elif num1 >= 25:
+        print(f'Your guess is too big. You have {9-i} attempts left')
+    i+=1
+    
+#Break or continue loops:
+friends = ['John','Terry','Eric','Michael','George']
+for friend in friends:
+    if friend == 'Eric':
+        print('Found ' + friend + '!')
+        continue
+    print(friend)
+print("For Loop done!")    
+
+#exercise for loops
+names = ['john ClEEse','Eric IDLE','michael']
+names1 = ['graHam chapman', 'TERRY', 'terry jones']
+more=input('Who else do you want to invite? Please seperate names by a comma: ').split(',')
+names.extend(more)
+
+for name in names: 
+    print(f'{name.title()}! You are invited to the party!')
+    continue
+
+for name1 in names1:
+    print(f'{name1.title()}! You are invited to the party!')
+    continue
+
+#Enumerate
+#can be used to index 
+friends = ['Brian', 'Judith', 'Reg', 'Loretta', 'Colin']
+
+for num, friend in enumerate(friends,51): #to enumerate from a starting number
+    print(num,friend)
+
+for friend in enumerate(enumerate(friends,51),-100): #makes a tuple inside a tuple
+    print(friend)  
+    
+#Sorted function
+my_list = [1,5,-3,7,-2]
+my_llist=[['car',4,65],['dog',2,30],['add',3,10],['bee',1,24]]
+print(sorted(my_llist, key = lambda item :item[2])) #lambda - function inside a function
+
+#sorted - returns a new sorted list vs sort - changes existing list
+#dictionaries
+movie = {
+    'title' : 'Life of Brian',
+    'year' : 1979,
+    'cast' : ['John','Eric','Michael','George','Terry']
+}
+print(movie['cast'])
+print(movie.get('budget'))
+movie['title'] = 'The Holy Grail'
+print(movie.get('title'))
+movie.update({'title' : 'The Holy Grail','year':1975})
+movie['budget'] = 250000
+print(movie)
+year = movie.pop('year') #removes year from dictionary and saves as new variable
