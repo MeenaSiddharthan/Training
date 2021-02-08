@@ -404,6 +404,7 @@ print(len(movie))
 for key, value in movie.items():
     print(key, value)
 
+
 python = {'John':35,'Eric':36,'Michael':35,'Terry':38,'Graham':37,'TerryG':34}
 holy_grail = {'Arthur':40,'Galahad':35,'Lancelot':39,'Knight of NI':40, 'Zoot':17}
 life_of_brian = {'Brian':33,'Reg':35,'Stan/Loretta':32,'Biccus Diccus':45}
@@ -437,25 +438,27 @@ freelancers = {'name':'freelancing Shop','brian': 70, 'black knight':20, 'biccus
 antiques = {'name':'Antique Shop','french castle':400, 'wooden grail':3, 'scythe':150, 'catapult':75, 'german joke':5}
 pet_shop = {'name':'Pet Shop','blue parrot':10, 'white rabbit':5, 'newt': 2}
 
+cart = {}
+for shop in (freelancers, antiques, pet_shop) :
+        a = input(f'Welcome to {shop["name"]}! Here is what\'s available: {shop.items()} Type what you\'d like to purchase or type exit to move on: ')
+        if a not in shop:
+            print('\n')
+            print(f'You\'ve chosen not to purchase anything from the {shop["name"]}.')
+        else:
+            cart.update({a:shop.pop(a)})
+            d = 1000 - int(cart.values(a))
+            print(f'You\'ve purchased {a} from {shop["name"]} and have ${d} remaining!')
+        b = ", ".join(list(cart.keys()))
+        c = sum(cart.values())
+print('\n')
+print(f'You have bought these items: {b}. The total cost for these is ${c}')
 
-for groups in (freelancers, antiques, pet_shop) :
-        a = input('What type of manpower do you need? Type exit to move on: ')
-        if a == 'exit':
-            print('You\'ve chosen not to get any manpower.')
-        else:
-            del freelancers[f'{a}']
-        b = input('What antique would you like?: ')
-        if b == 'exit':
-            print('You\'ve chosen not to get any antiques.')
-        else:
-            del antiques[f'{b}']
-        c = input('What pet would you like?: ')
-        if c == 'exit':
-            print('You\'ve chosen not to get any pets.')
-        else:
-            del pet_shop[f'{c}']
-        break
-        for value in (a,b,c):
-            if value == 'exit':
-                value = 'nothing'
-print(f'You have bought {a}, a {b} and {c}.')
+#Solution
+cart = {}
+
+for shop in (freelancers, antiques, pet_shop):
+    #so to access dictionaries use double quotation
+    a = input(f'Welcome to {shop["name"]}! Here\'s what\'s in store: {shop}. Type what you want to purchase: ').lower()
+    cart.update({a:shop.pop(a)})
+    b = ", ".join(list(cart.keys()))
+print(f'You have purchased {b}. Today it is all free. Have a nice day of mayhem!')
