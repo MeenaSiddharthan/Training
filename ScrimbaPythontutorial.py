@@ -434,31 +434,38 @@ print(sorted(ppl2.items()))
 print('The sum of the ages: ', sum(ppl2.values()))
 
 #Exercise
-freelancers = {'name':'freelancing Shop','brian': 70, 'black knight':20, 'biccus diccus':100, 'grim reaper':500, 'minstrel':-15}
+freelancers = {'name':'Freelancing Shop','brian': 70, 'black knight':20, 'biccus diccus':100, 'grim reaper':500, 'minstrel':-15}
 antiques = {'name':'Antique Shop','french castle':400, 'wooden grail':3, 'scythe':150, 'catapult':75, 'german joke':5}
 pet_shop = {'name':'Pet Shop','blue parrot':10, 'white rabbit':5, 'newt': 2}
 
+department_start = {**freelancers, **antiques, **pet_shop}
+print(sorted(department_start.items()))
+print('-----'+'\n')
+
 cart = {}
+wallet = 1000
 for shop in (freelancers, antiques, pet_shop) :
-        a = input(f'Welcome to {shop["name"]}! Here is what\'s available: {shop.items()} Type what you\'d like to purchase or type exit to move on: ')
+        a = input(f'Welcome to {shop["name"]}! Here is what\'s available: {list(shop.items())} Type what you\'d like to purchase or type exit to move on: ')
         if a not in shop:
-            print('\n')
-            print(f'You\'ve chosen not to purchase anything from the {shop["name"]}.')
+            print('\n'+f'You\'ve chosen not to purchase anything from the {shop["name"]}.')
         else:
             cart.update({a:shop.pop(a)})
-            d = 1000 - int(cart.values(a))
-            print(f'You\'ve purchased {a} from {shop["name"]} and have ${d} remaining!')
+            wallet = wallet - (cart[f'{a}'])
+            print('\n'+f'You\'ve purchased {a} from {shop["name"]} and have ${wallet} remaining!')
         b = ", ".join(list(cart.keys()))
         c = sum(cart.values())
-print('\n')
-print(f'You have bought these items: {b}. The total cost for these is ${c}')
+print('\n'+f'You have bought these items: {b}. You spent a total of ${c} and have ${wallet} remaining!')
 
-#Solution
-cart = {}
+department_end = {**freelancers, **antiques, **pet_shop}
+print('\n'+'-----')
+print(sorted(department_end.items()))
 
-for shop in (freelancers, antiques, pet_shop):
-    #so to access dictionaries use double quotation
-    a = input(f'Welcome to {shop["name"]}! Here\'s what\'s in store: {shop}. Type what you want to purchase: ').lower()
-    cart.update({a:shop.pop(a)})
-    b = ", ".join(list(cart.keys()))
-print(f'You have purchased {b}. Today it is all free. Have a nice day of mayhem!')
+#Errors
+#try:
+    #code you want to run
+#except:
+    #executed if error occurs
+#else:
+    #executed if no error
+#finally:
+    #always executed
