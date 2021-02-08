@@ -371,3 +371,91 @@ movie.update({'title' : 'The Holy Grail','year':1975})
 movie['budget'] = 250000
 print(movie)
 year = movie.pop('year') #removes year from dictionary and saves as new variable
+
+#Dictionaries
+#aren't ordered and can contain duplicate values
+#key : value
+movie = {
+    'title' : 'Life of Brian',
+    'year' : 1979,
+    'cast' :['John','Eric','Michael','George','Terry']
+    }
+print(movie)
+print(movie['title'])
+print(movie.get('budget'))
+
+#update dictionary
+movie['title'] = 'The Holy Grail'
+#add a new key
+movie['budget']=250000
+print(movie['title'])
+print(movie)
+
+#Delete entries
+year = movie.pop('year')
+#or 
+del movie['year']
+print(movie)
+
+#Number of keys in a dictionary
+print(len(movie))
+
+#Loop through dictionary
+for key, value in movie.items():
+    print(key, value)
+
+python = {'John':35,'Eric':36,'Michael':35,'Terry':38,'Graham':37,'TerryG':34}
+holy_grail = {'Arthur':40,'Galahad':35,'Lancelot':39,'Knight of NI':40, 'Zoot':17}
+life_of_brian = {'Brian':33,'Reg':35,'Stan/Loretta':32,'Biccus Diccus':45}
+
+print('Arthur' in holy_grail)
+if 'Arthur' not in python:
+    print('He\'s not here')
+    
+#Concat several dictionaries together
+ppl={}
+ppl1={}
+ppl2={}
+
+#updates
+ppl.update(python)
+print(ppl)
+
+#comprehension
+for groups in (python, holy_grail, life_of_brian) : ppl1.update(groups)
+print(ppl1)
+
+#Unpacking
+ppl2={**python,**holy_grail,**life_of_brian}
+print(ppl2)
+print(sorted(ppl2))
+print(sorted(ppl2.items()))
+print('The sum of the ages: ', sum(ppl2.values()))
+
+#Exercise
+freelancers = {'name':'freelancing Shop','brian': 70, 'black knight':20, 'biccus diccus':100, 'grim reaper':500, 'minstrel':-15}
+antiques = {'name':'Antique Shop','french castle':400, 'wooden grail':3, 'scythe':150, 'catapult':75, 'german joke':5}
+pet_shop = {'name':'Pet Shop','blue parrot':10, 'white rabbit':5, 'newt': 2}
+
+
+for groups in (freelancers, antiques, pet_shop) :
+        a = input('What type of manpower do you need? Type exit to move on: ')
+        if a == 'exit':
+            print('You\'ve chosen not to get any manpower.')
+        else:
+            del freelancers[f'{a}']
+        b = input('What antique would you like?: ')
+        if b == 'exit':
+            print('You\'ve chosen not to get any antiques.')
+        else:
+            del antiques[f'{b}']
+        c = input('What pet would you like?: ')
+        if c == 'exit':
+            print('You\'ve chosen not to get any pets.')
+        else:
+            del pet_shop[f'{c}']
+        break
+        for value in (a,b,c):
+            if value == 'exit':
+                value = 'nothing'
+print(f'You have bought {a}, a {b} and {c}.')
