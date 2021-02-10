@@ -468,4 +468,186 @@ print(sorted(department_end.items()))
 #else:
     #executed if no error
 #finally:
-    #always executed
+    #always executed - runs regardless if there's error or not
+try:
+    num=int(input('Enter a number between 1 and 30: '))
+    num1 = 30/num
+    if num >30 or num < 1:
+        raise ValueError(num)
+except ValueError as err:
+    print(err, "Bad Value input!")
+except ZeroDivisionError as err:
+    print(err, "You can't divide by zero!")
+else:
+    print("30 divided by",num, "is: ", 30/num)
+finally:
+    print("**Thank you for playing!**")
+
+##Classes and Objects
+#Classes - are blueprints/abstract
+#objects - actual things you build
+#Variables - attributes
+#function - method
+class Movie:
+    def __init__(self,title,year,imdb_score,have_seen):
+        self.title = title
+        self.year = year
+        self.imdb_score = imdb_score
+        self.have_seen = have_seen
+        #Create function within class
+    def nice_print(self):
+        print("Title: ", self.title)
+        print("Year of production: ", self.year)
+        print("IMDB Score: ", self.imdb_score)
+        print("I have seen it: ", self.have_seen)
+        
+#self - keyword refers to object we are creating + convention is to use self
+film_1 = Movie("Life of Brian",1979,8.1,True)
+film_2 = Movie("Inception",2017,9.0,True)
+film_2.nice_print()
+#OR
+movie.nice_print(film_2)
+#To create database of films
+films = [film_1,film_2]
+print(films[1].title)
+
+#Class Inheritance
+#when you have a class that inherits something from another class
+class Karens:
+    def move(self):
+        print('Karen takes 5 steps toward you!')
+    def attack(self):
+        print('Says she wants to speak to the manager! You are down 3 HP!')
+class Male(Karens):
+    def rejection(self):
+        print('Says he didn\'t find you attractive anyway! You gain 3 HP!')
+class Reasonable(Karens):
+    def badguy(self):
+        print('She has a point! Maybe you are the bad guy. You lose 10 HP!')
+    def soft(self):
+        print('Says you are just young and gives you candy. 23 y/o you takes it to gain 3HP!')
+class Rich(Reasonable):
+    def soft(self):
+        print('Is being passive aggressive... but she called you darlin so you gain 3HP!')
+        
+character1 = Karens()
+character1.move()
+character1.attack()
+character2=Male()
+character2.move()
+character2.rejection()
+character3=Rich()
+character3.move()
+character3.badguy()
+character3.soft()
+
+#Modules
+#When you write functions - package code in modules + in python can import module or packages to use
+#import babyyyyy
+import pandas as pd
+#gives you list of fuctions in the package/module
+print(dir(pd))
+#to import multiple packages
+import pandas, numpy
+#to import just a couple fuctions from a package rather than the whole package
+#then don't need to write pd.DataFrame - can just write DataFrame
+from pandas import DataFrame as df
+
+#Zip + Unzip command
+num = list('69420')
+letter = str('m o i s t').split(' ')
+names = ['Kayden','Tyler','Christopher','Jay','Mikhail']
+wow = zip(num,letter,names)
+#to assign num to names
+combo = list(zip(num,names))
+print(combo)
+#can make dict too
+combo1 = dict(zip(num,letter))
+print(combo1)
+combo2 = list(zip(num,letter,names))
+print(combo2)
+#to unzip and make variables
+a,b,c = zip(*combo2)
+
+keys = str('this parrot is deceased').split()
+values = str('denna papegojan är avliden').split(' ')
+learn = dict(zip(keys,values))
+print(learn)
+
+#Lambda functions
+#for normal functions need to return and print
+def square(x):
+    return x*x
+print(square(3))
+#name = lambda parameter(s): expression
+#lambda- like a function *lite*
+square1 = lambda x: x*x
+print(square1(3))
+double_mult = lambda x,y: x*y
+print(double_mult(2,4))
+
+#Function and a lambda function to get name and alias
+def name_and_alias(name,alias):
+    return name.strip().title() + ':' + alias.strip().title()
+name_and_alias1 = lambda name,alias:name.strip().title() + ':' + alias.strip().title()
+print(name_and_alias1('rOger fedEREr  ','teNnOS'))
+print(name_and_alias('rOger fedEREr  ','teNnOS'))
+
+monty_python = ['John Marwood Cleese','Eric Idle','Michael Edward Palin','Terrence Vance Gilliam','Terry Graham Perry Jones', 'Graham Arthur Chapman']
+#only sorts by first name
+monty_python.sort()
+#sort by last name
+monty_python.sort(key = lambda names:names.split(' ')[-1])
+print(monty_python)
+
+#But why use lambda if you can use function?
+#can put lambda in a function so a function returns a new function
+def func(n):
+    return lambda a: a*n
+double = func(2)
+print(double(3))
+
+def price_calc(start,hourly_rate):
+    return lambda hours: start + hourly_rate * hours
+    
+walkin_cost = price_calc(10,30)
+
+print(walkin_cost(2))
+
+#Lambda exercise
+f = lambda a: a+5
+print(f(2))
+
+strip = lambda a: ''.join(a.split(' '))
+strip('maybe baby im wonderwall')
+
+list_a = [1,2,3,4]
+list_b = [3,4,5,6,7]
+lists = lambda a,b: list(set(a+b))
+print(lists(list_a,list_b))
+
+def create_quad_func(a,b,c):
+    '''return function f(x) = ax^2 + bx + c'''
+    return lambda x: a*x**2 + b*x + c
+f = create_quad_func(2,4,6)
+print(f(2))
+
+signups = ['MPF104', 'MPF20', 'MPF2', 'MPF17', 'MPF3', 'MPF45']
+print(sorted(signups)) # Lexicographic sort
+#write sorting by integer
+signups.sort(key = lambda names: int(names[3: ]))
+print(signups)
+
+class Player:
+   def __init__(self, name, score):
+       self.name = name
+       self.score =  score
+
+Eric = Player('Eric', 116700)
+John = Player('John', 24327)
+Terry = Player('Terry', 150000)
+player_list = [Eric, John, Terry]
+
+#Exercise: Sort this by score using lambda!
+player.name = 
+print([player.name for player in player_list])
