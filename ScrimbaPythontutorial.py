@@ -649,5 +649,234 @@ Terry = Player('Terry', 150000)
 player_list = [Eric, John, Terry]
 
 #Exercise: Sort this by score using lambda!
-player.name = 
-print([player.name for player in player_list])
+player_list.sorted(key = lambda playyer: playyer)
+
+#Comprehensions 
+#Creates lists, sets, tuples, dict with less code - anything that can be done with comprehensions, can do with for loops
+numbers = [1,2,3,4,5,6,7,8,9]
+
+new_list = []
+for num in numbers:
+    a = num**2
+    new_list.append(a)
+print(new_list)
+#using comprehension
+new_list = [num**2 for num in numbers]
+print(new_list)
+
+new_list1 = [num**2 for num in numbers if num%2 == 0] #% sign is like division but checks for remainder so if reminder is 0, number is even
+print(new_list1)
+
+new_list = []
+for letter in 'spam':
+   for num in range(4):
+       new_list.append((letter,num))
+print(new_list)
+
+new_list = [(letter,num) for letter in'spam' for num in range(4)]
+print(new_list)
+
+# Dictionary comprehensions
+movies = ["And Now for Something Completely Different","Monty Python and the Holy Grail",
+"Monty Python's Life of Brian","Monty Python Live at the Hollywood Bowl","Monty Python's The Meaning of Life","Monty Python Live (Mostly)"]
+year =[1971,1975,1979,1982,1983,2014]
+names = ['John','Eric','Michael','Graham','Terry','TerryG']
+print(list(zip(movies, year)))
+# give me a dict('movies': year) for each movies, year in zip(movies, year)
+new_dict = dict()
+for movie, yr in zip(movies,year):
+    new_dict[movie] = yr
+print(new_dict)
+
+new_dict = {movie:yr for movie,yr in zip(movies,year) if yr < 1983 and movie.startswith('Monty')}
+print(new_dict)
+n1 =[(name,movie,yr) for name,movie,yr in zip(names,movies,year) if yr < 1981]
+print(n1)
+
+#Randomness
+import random as rd
+#pseudo radomness vs secure randomness
+for i in range(5):
+    print(rd.random())
+    print(rd.uniform(1,6)) #geerates between 1 and 6
+    print(rd.randint(1,6)) #generates integer between 1 and 6
+    print(random.randrange(1,100,2)) #generates random between 1 and 100 with steps of 2 (e.g. 1,3,5)
+    
+#to shoose at random
+friends_list =  ['John', 'Eric', 'Michael', 'Terry', 'Graham']
+print(rd.choice(friends_list))
+#to choose random sample - each case drawn only once
+print(rd.sample(friends_list,3)) #creates sample of 3
+
+#Timeit and performance of code
+#to test which code runs faster import timeit
+import timeit as tt
+
+#codes to find prime numbers within a certain range
+print([x for x in range(2,150) if not ([x%y == 0 for y in range(2,150)])])
+#why can't I change x to 150 for y range? and why do i need "any" in front?
+
+def test1():
+    [x for x in range(2, 151) if not any([x % y == 0 for y in range(2, x)])]
+def test2():
+    # Initialize a list
+    primes = []
+    for possiblePrime in range(2, 151):
+    # Assume number is prime until shown it is not.
+        isPrime = True
+        for num in range(2, int(possiblePrime ** 0.5) + 1):
+            if possiblePrime % num == 0:
+                isPrime = False
+                break
+        if isPrime:
+            primes.append(possiblePrime)
+    #print(primes)
+    return(1)
+
+print(timeit.timeit('test1()', globals=globals(), number=10))
+print(timeit.timeit('test2()', globals=globals(), number=10))
+
+#Project Crypto machine
+# create keys string
+# autogenerate the values string by offsetting original string
+# create two dictionaries
+#user input 'the message' and mode
+# run encode or decode
+# return result
+# clean and beautify the code 
+
+def crypto():
+    a = input('Enter sentence to be decrypted/encrypted: ').lower().split(' ')
+    b = input('Enter decrypt or crypt mode: ').lower()
+    new_lang = ['chat','et','chaud', 'tres', 'comme', 'ton', 'mamau']
+    eng = ['cat','is','fat', 'very', 'like', 'your', 'mom']
+    decrypt = dict(zip(new_lang,eng))
+    crypt = dict(zip(eng,new_lang))
+    translate = []
+    try:
+        if b == 'crypt':
+            for word in a:
+                translate.append(crypt[word])
+                continue
+        elif b == 'decrypt':
+            for word in a:
+                translate.append(decrypt[word])
+                continue
+        elif b != 'crypt' or 'decrypt':
+            print('You have entered an incorrect mode!')
+    except KeyError as err:
+        print(err, "is not recognized!")
+    c = ' '.join(translate)
+    return(print('Here is your message: '+c.title()))
+    
+def enigma_light():
+# create keys string
+    keys = 'abcdefghijklmnopqrstuvwxyz !'
+# autogenerate the values string by offsetting original string
+    values = keys[-1] + keys[0:-1]
+    #print(keys)
+    #print(values)
+# create two dictionaries
+    dict_e = dict(zip(keys,values))
+    dict_d = dict(zip(values,keys)) 
+# OR create 1 and then flip 
+    #dict_e = dict(zip(keys,values))
+    #dict_d = {value:key for key, value in dict_e.items()}
+#user input 'the message' and mode
+    msg = input('Enter your secret message quietly: ')
+    mode = input('Crypto mode: encode (e) OR decrypt as default: ')
+# run encode or decode
+    if mode.lower() == 'e':
+        new_msg = ''.join([dict_e[letter] for letter in msg.lower()])
+    else:
+        new_msg = ''.join([dict_d[letter] for letter in msg.lower()])
+    
+    return new_msg.capitalize()
+print(enigma_light())
+
+#Math tutor project
+#ask how many questiona want to answer
+#show multiplication table and ask for input
+#at the end state number of correct answers/greetings/% correct
+#total time taken and time taken per question
+#show all questions with answers
+import random as rd
+import time
+
+answer_list = []
+def calculations():
+    number = int(input('How many equations do you want to solve?: '))
+    limits = int(input('What\'s the highest number you want to solve?: '))
+    d=0
+    e=0
+    while number > 0:
+        a,b = rd.randint(1,limits), rd.randint(1,limits)
+        c = a*b
+        start = time.time()
+        answer = int(input(f'What is {a} x {b}?: '))
+        end = time.time()
+        if answer == c:
+            d+=1
+            answer_list.append(f'Q: {a} x {b} A: {c} Your A: {answer}')
+            print(f'That is correct! That took you {round(float(end - start),2)} seconds!')
+            print(f'You have {number-1} equations left.')
+        elif answer != c:
+            e+=1
+            answer_list.append(f'Q: {a} x {b} A: {c} Your A: {answer}')
+            print(f'That is correct! That took you {round(float(end - start),2)} seconds!')
+            print(f'You have {number-1} equations left.')
+        number-=1
+    print('\n')
+    for answer in answer_list:
+        print(answer)
+    return(print(f'\nThank you for playing! You were {round((d/(e+d)*100),1)}% correct.\nYou got {d} question(s) right and {e} question(s) wrong.'))
+    
+#Answer
+from  random import randrange as r 
+from time import time as t
+def sol1():
+    no_questions = int(input('How many questions do you want?: '))
+    max_num =int(input('Highest number used in practice?: '))
+    score = 0
+    answer_list = []
+    start = t()
+    for q in range(no_questions):
+        num1,num2 = r(1,max_num+1),r(1,max_num+1)
+        ans = num1 * num2
+        u_ans =int(input(f'{num1} X {num2} = '))
+        answer_list.append(f'{num1} X {num2} = {ans} you:{u_ans}')
+        if u_ans == ans:
+            score += 1
+        end = t()
+    return(print(f'Thank you for playing! \nYou got {score} out of {no_questions} ({round(score/no_questions*100)}%) correct in {round(end-start,1)} seconds ({round((end-start)/no_questions,1)}seconds/question)'))
+
+for a in answer_list:
+    print(a)
+    
+#Marble trading game
+#draw marble from bag at random
+#if green - win, if red - lose
+#before draw decide how much you want to bet
+#number of rounds/draws must be random
+#game over if you lose half money
+import random as rd
+wallet = 1000
+marbles = ['green','green','green','green','green','green','red','red','red','red']
+drawn = []
+
+i = rd.randint(1,10)
+while i > 0:
+    if wallet > 500:
+        bet = int(input('How much would you like to bet?: '))
+        a = rd.choice(marbles)
+        drawn.append(a)
+        if a == 'red':
+            wallet-=bet
+            print(f'Damn! You drew a {a} marble, so you lose! You have ${wallet} left.\nThere are {i-1} rounds left.')
+        elif a == 'green':
+            wallet+=bet
+            print(f'You drew a {a} marble, so you win! You have ${wallet} left.\nThere are {i-1} rounds left.')
+    else:
+        print('Sorry, you do not have enough money to continue!')
+    i-=1
+print(f'\nYou drew marbles in this order: {", ".join(drawn)}. You have ${wallet} left.')
