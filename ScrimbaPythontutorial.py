@@ -880,3 +880,16 @@ while i > 0:
         print('Sorry, you do not have enough money to continue!')
     i-=1
 print(f'\nYou drew marbles in this order: {", ".join(drawn)}. You have ${wallet} left.')
+
+##Datacamp tutorial
+#Matplotlib
+
+import matplotlib.pyplot as plt
+fruit = ['banana','apple','pear','dragonfruit']
+cost = [3.44, 2.01, 5.9, 4.1]
+#first axis is the horizontal and next is the vertical
+plt.plot(fruit, cost)
+#or
+plt.scatter(fruit,cost)
+#show actually displays the plot
+plt.show()
